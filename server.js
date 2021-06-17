@@ -9,6 +9,7 @@ if (process.env.NODE_ENV !== 'production') {
   const flash = require('express-flash')
   const session = require('express-session')
   const methodOverride = require('method-override')
+  const port = process.env.PORT || 8000
   
   const initializePassport = require('./passport-config')
   initializePassport(
@@ -64,7 +65,7 @@ if (process.env.NODE_ENV !== 'production') {
     }
   })
   
-  app.delete('/logout', (req, res) => {
+  app.delete('/logout', function(req, res) {
     req.logOut()
     res.redirect('/login')
   })
@@ -84,4 +85,6 @@ if (process.env.NODE_ENV !== 'production') {
     next()
   }
   
-  app.listen(3000)
+  app.listen(port, () => {
+    console.log(` listening at ${port}`)
+  })
